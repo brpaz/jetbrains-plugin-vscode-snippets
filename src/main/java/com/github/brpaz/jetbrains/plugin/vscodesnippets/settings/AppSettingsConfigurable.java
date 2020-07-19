@@ -5,10 +5,9 @@ import com.github.brpaz.jetbrains.plugin.vscodesnippets.settings.ui.AppSettingsC
 import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.options.Configurable;
 import com.intellij.openapi.options.ConfigurationException;
+import javax.swing.*;
 import org.jetbrains.annotations.Nls;
 import org.jetbrains.annotations.Nullable;
-
-import javax.swing.*;
 
 /** Provides controller functionality for application settings. */
 public class AppSettingsConfigurable implements Configurable {
