@@ -1,0 +1,26 @@
+<idea-plugin>
+    <id>com.github.brpaz.jetbrains.plugin.vscodesnippets</id>
+    <idea-version since-build="193.*"></idea-version>
+    <name>VSCode Snippets</name>
+    <vendor email="oss@brunopaz.dev" url="https://brunopaz.dev">Bruno Paz</vendor>
+
+    <description><![CDATA[
+    Use Visual Studio Code Snippets on Jetbrains IDEs
+    ]]></description>
+
+    <!-- please see https://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <depends>com.intellij.modules.platform</depends>
+    <extensions defaultExtensionNs="com.intellij">
+        <preloadingActivity implementation="com.github.brpaz.jetbrains.plugin.vscodesnippets.extensions.LoadSnippetsActivity"/>
+        <completion.contributor language="any" implementationClass="com.github.brpaz.jetbrains.plugin.vscodesnippets.extensions.VSCodeCompletionContributor" order="first"/>
+        <applicationService serviceImplementation="com.github.brpaz.jetbrains.plugin.vscodesnippets.settings.AppSettingsState"/>
+        <applicationConfigurable parentId="editor" instance="com.github.brpaz.jetbrains.plugin.vscodesnippets.settings.AppSettingsConfigurable"
+                                 id="com.github.brpaz.jetbrains.plugin.vscodesnippets.settings.AppSettingsConfigurable"
+                                 displayName="VS Code Snippets"/>
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>

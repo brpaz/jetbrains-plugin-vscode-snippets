@@ -1,0 +1,206 @@
+{
+  "jest-afterall": {
+    "body": [
+      "afterAll(() => {\n\t$0\n});"
+    ],
+    "description": "afterAll function is called once after all specs",
+    "prefix": [
+      "jest afterall",
+      "aa"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "context": {
+      "patterns": [
+        "**/*/*.spec.{ts,js}"
+      ],
+      "package": {
+        "provider": "npm",
+        "name": "jest"
+      }
+    }
+  },
+  "jest-aftereach": {
+    "body": [
+      "afterEach(() => {\n\t$0\n});"
+    ],
+    "description": "afterEach function is called once after each spec",
+    "prefix": "jest aftereach",
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "context": {
+      "patterns": [
+        "**/*/*.spec.{ts,js}"
+      ],
+      "package": {
+        "provider": "npm",
+        "name": "jest"
+      }
+    }
+  },
+  "jest-beforeall": {
+    "body": [
+      "beforeAll(() => {\n\t$0\n});"
+    ],
+    "description": "beforeAll function is called once before all specs",
+    "prefix": [
+      "jest beforeall",
+      "ba"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "context": {
+      "patterns": [
+        "**/*/*.spec.{ts,js}"
+      ],
+      "package": {
+        "provider": "npm",
+        "name": "jest"
+      }
+    }
+  },
+  "jest-beforeeach": {
+    "body": [
+      "beforeEach(() => {\n\t$0\n});"
+    ],
+    "description": "beforeEach function is called once before each spec",
+    "prefix": [
+      "jest beforeeach",
+      "be"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "context": {
+      "patterns": [
+        "**/*/*.spec.{ts,js}"
+      ],
+      "package": {
+        "provider": "npm",
+        "name": "jest"
+      }
+    }
+  },
+  "jest-describe": {
+    "body": [
+      "describe('${1:Name of the group}', () => {\n\t$0\n});"
+    ],
+    "description": "creates a describe block",
+    "prefix": [
+      "jest describe",
+      "desc"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "context": {
+      "patterns": [
+        "**/*/*.spec.{ts,js}"
+      ],
+      "package": {
+        "provider": "npm",
+        "name": "jest"
+      }
+    }
+  },
+  "jest-describe-each": {
+    "body": [
+      "describe.each([${1:[1, 2], [2, 4]}])(",
+      "\t'${2:double(%d)}',",
+      "\t(${3:input, expected}) => {",
+      "\t\ttest(`returns \\${expected}`, () => {",
+      "\t\t\t${4:expect(double(input)).toBe(expected);}",
+      "\t\t});",
+      "\t}",
+      ");"
+    ],
+    "description": "creates a describe block with different test data sets",
+    "prefix": [
+      "jest describe each",
+      "desce"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "context": {
+      "patterns": [
+        "**/*/*.spec.{ts,js}"
+      ],
+      "package": {
+        "provider": "npm",
+        "name": "jest"
+      }
+    }
+  },
+  "jest-describe-only": {
+    "body": [
+      "describe.only('${1:Name of the group}', () => {\n\t$0\n});"
+    ],
+    "description": "creates a describe block that runs only",
+    "prefix": [
+      "jest describe only",
+      "desco"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "context": {
+      "patterns": [
+        "**/*/*.spec.{ts,js}"
+      ],
+      "package": {
+        "provider": "npm",
+        "name": "jest"
+      }
+    }
+  },
+  "jest-describe-skip": {
+    "body": [
+      "describe.skip('${1:Name of the group}', () => {\n\t$0\n});"
+    ],
+    "description": "creates a describe block that will be skipped",
+    "prefix": [
+      "jest describe skip",
+      "descs"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "context": {
+      "patterns": [
+        "**/*/*.spec.{ts,js}"
+      ],
+      "package": {
+        "provider": "npm",
+        "name": "jest"
+      }
+    }
+  },
+  "jest-expect": {
+    "body": [
+      "expect($0)"
+    ],
+    "description": "expect actual value",
+    "prefix": [
+      "jest expect",
+      "exp"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "context": {
+      "patterns": [
+        "**/*/*.spec.{ts,js}"
+      ],
+      "package": {
+        "provider": "npm",
+        "name": "jest"
+      }
+    }
+  },
+  "jest-expect-assertions": {
+    "body": [
+      "expect.assertions($0);"
+    ],
+    "description": "expects the test to make the indicated number of assertions (useful for async)",
+    "prefix": [
+      "jest expect assertions",
+      "expas"
+    ],
+    "scope": "javascript,javascriptreact,typescript,typescriptreact",
+    "context": {
+      "patterns": [
+        "**/*/*.spec.{ts,js}"
+      ],
+      "package": {
+        "provider": "npm",
+        "name": "jest"
+      }
+    }
+  }
+}

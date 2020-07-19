@@ -1,0 +1,78 @@
+plugins {
+    id 'java'
+    id 'org.jetbrains.intellij' version '0.4.21'
+    id 'jacoco'
+    id 'checkstyle'
+    id "com.diffplug.spotless" version "5.1.0"
+    id "com.github.spotbugs" version "4.4.4"
+}
+
+group 'com.github.brpaz'
+version = file('version.txt').text.trim()
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testCompile group: 'junit', name: 'junit', version: '4.5'
+    implementation 'com.google.code.gson:gson:2.8.6'
+}
+
+// See https://github.com/JetBrains/gradle-intellij-plugin/
+intellij {
+    version '2020.1.1'
+}
+
+runIde {
+    // Absolute path to the installed targetIDE to use as IDE Development Instance
+    // Note the Contents directory must be added at the end of the path for macOS.
+    ideDirectory '/home/bruno/.local/share/JetBrains/Toolbox/apps/WebStorm/ch-0/201.7223.93/'
+}
+patchPluginXml {
+
+}
+
+
+test {
+    finalizedBy jacocoTestReport // report is always generated after tests run
+}
+
+jacocoTestReport {
+    dependsOn test // tests are required to run before generating the report
+    reports {
+        xml.enabled true
+        html.enabled true
+    }
+}
+
+
+checkstyle {
+    toolVersion '8.34'
+}
+
+spotless {
+    java {
+        googleJavaFormat()
+    }
+}
+
+
+spotbugs {
+    ignoreFailures = false
+    effort = "more"
+    reportLevel = "high"
+}
+
+
+spotbugsMain {
+    reports {
+        xml.enabled = true
+        html.enabled = true
+    }
+}
+
+publishPlugin {
+    token = System.getenv("INTELIJ_PUBLISH_TOKEN")
+    channels 'beta'
+}

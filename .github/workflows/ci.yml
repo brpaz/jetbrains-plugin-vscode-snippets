@@ -1,0 +1,110 @@
+name: CI
+
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
+
+jobs:
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Checkstyle
+        run: ./gradlew check
+
+      - name: SpotBugs
+        run: ./gradlew spotBugsMain spotBugsTest
+
+      - name: Spotbugs report
+        uses: jwgmeligmeyling/spotbugs-github-action@master
+        with:
+            path: 'build/reports/spotbugs/main.xml'
+        if: ${{ always() }}
+
+      - name:  Checkstyle report
+        uses: jwgmeligmeyling/checkstyle-github-action@master
+        with:
+          path: 'build/reports/checkstyle/main.xml'
+        if: ${{ always() }}
+
+  test:
+    name: Build Plugin
+    runs-on: ubuntu-latest
+    needs: lint
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Build the plugin
+        run: ./gradlew buildPlugin
+
+      - name: Run tests
+        run: ./gradlew test
+
+      - name: Publish code coverage report
+        uses: codecov/codecov-action@v1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+          file: ./build/reports/jacoco/test/jacocoTestReport.xml
+
+      - name: Upload Test Reports
+        uses: actions/upload-artifact@v2
+        with:
+          name: jacoco-report
+          path: build/reports/jacoco/test/html/index.html
+        if: ${{ always() }}
+
+  release:
+    name: Release
+    needs: [lint, test]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/master'
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+            java-version: 11
+
+      - name: Get Next Release Version
+        uses: cycjimmy/semantic-release-action@v2
+        id: semantic
+        with:
+          dry_run: true
+        env:
+           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Release binary
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run:  |
+          echo ${{ steps.semantic.outputs.new_release_version }} > version.txt
+          ./gradlew buildPlugin
+
+      - name: Publish Release to GitHub
+        uses: cycjimmy/semantic-release-action@v2
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Plugin to Jetbrains Plugin Repository
+        run: ./gradlew publishPlugin
+        env:
+          INTELIJ_PUBLISH_TOKEN: ${{ secrets.INTELIJ_PUBLISH_TOKEN }}
