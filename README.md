@@ -1,8 +1,9 @@
 # VS Code Snippets Jetbrains Plugin
 
-> Use your VS Code Snippets directly in Jetbrains IDEs. Compatible with [Contextual Snippets Extenstion](https://github.com/brpaz/vscode-contextual-snips)
+> Use your VS Code Snippets directly in Jetbrains IDEs. Compatible with [Contextual Snippets Extenstion](https://github.com/brpaz/vscode-contextual-snips).
 
-[![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/com.github.brpaz.jetbrains.plugin.vscodesnippets?style=for-the-badge)](https://plugins.jetbrains.com/plugin/)
+[![JetBrains IntelliJ Plugins](https://img.shields.io/jetbrains/plugin/v/com.github.brpaz.jetbrains.plugin.vscodesnippets?style=for-the-badge)](https://plugins.jetbrains.com/plugin/14729-vscode-snippets)
+[![JetBrains IntelliJ plugins](https://img.shields.io/jetbrains/plugin/d/14729-vscode-snippets?style=for-the-badge)](https://plugins.jetbrains.com/plugin/14729-vscode-snippets)
 [![CI Status](https://img.shields.io/github/workflow/status/brpaz/jetbrains-plugin-vscode-snippets/CI?color=orange&label=actions&logo=github&logoColor=orange&style=for-the-badge)](https://github.com/brpaz/jetbrains-plugin-vscode-snippets)
 [![Codecov](https://img.shields.io/codecov/c/github/brpaz/jetbrains-plugin-vscode-snippets?style=for-the-badge)](https://codecov.io/gh/brpaz/jetbrains-plugin-vscode-snippets)
 [![License](https://img.shields.io/badge/License-MIT-yellow.svg?style=for-the-badge)](LICENSE)
