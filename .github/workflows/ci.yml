@@ -105,6 +105,7 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Plugin to Jetbrains Plugin Repository
-        run: ./gradlew publishPlugin
+        if: steps.semantic.outputs.new_release_published == 'true'
+        run: ./gradlew publishPlugin --stacktrace
         env:
           INTELIJ_PUBLISH_TOKEN: ${{ secrets.INTELIJ_PUBLISH_TOKEN }}
