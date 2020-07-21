@@ -24,6 +24,19 @@ public class VSCodeSnippet {
 
   private Context context;
 
+  public VSCodeSnippet() {
+    this.body = new ArrayList<>();
+    this.prefix = new ArrayList<>();
+    this.scope = new ArrayList<>();
+  }
+
+  public boolean isValid() {
+    return this.body.size() > 0 &&
+      this.scope.size() > 0 &&
+      this.prefix.size() > 0 &&
+      this.label != null;
+  }
+
   public static class Context {
     private List<String> patterns = new ArrayList<>();
 
@@ -65,5 +78,17 @@ public class VSCodeSnippet {
 
   public Context getContext() {
     return context;
+  }
+
+  public void setPrefix(List<String> prefix) {
+    this.prefix = prefix;
+  }
+
+  public void setBody(List<String> body) {
+    this.body = body;
+  }
+
+  public void setScope(List<VSCodeLanguage> scope) {
+    this.scope = scope;
   }
 }
