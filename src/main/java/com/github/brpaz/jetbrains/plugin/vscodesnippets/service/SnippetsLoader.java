@@ -7,8 +7,6 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.intellij.openapi.components.Service;
 import com.intellij.openapi.diagnostic.Logger;
-import org.apache.commons.io.FilenameUtils;
-
 import java.io.File;
 import java.io.FileReader;
 import java.nio.charset.StandardCharsets;
@@ -18,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.apache.commons.io.FilenameUtils;
 
 @Service
 public final class SnippetsLoader {
@@ -66,7 +65,7 @@ public final class SnippetsLoader {
         s.setLabel(entry.getKey());
 
         if (s.getScope().size() == 0 && fileScope != null) {
-          List<VSCodeLanguage> scope = new ArrayList<>();
+          Set<VSCodeLanguage> scope = new HashSet<>();
           scope.add(fileScope);
           s.setScope(scope);
         }
@@ -74,7 +73,6 @@ public final class SnippetsLoader {
         if (s.isValid()) {
           snippetsList.add(JetbrainsSnippet.fromVSCodeSnippet(entry.getValue()));
         }
-
       }
     } catch (Exception e) {
       logger.warn("Cannot parse snippet file", e);
@@ -89,7 +87,7 @@ public final class SnippetsLoader {
     try {
       return VSCodeLanguage.fromLabel(fileName);
     } catch (IllegalArgumentException e) {
-        return null;
+      return null;
     }
   }
 }

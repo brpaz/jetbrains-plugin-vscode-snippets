@@ -1,7 +1,6 @@
 package com.github.brpaz.jetbrains.plugin.vscodesnippets.service.packageprovider;
 
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.PackageProvider;
-import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.jetbrains.JetbrainsSnippet;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.intellij.openapi.diagnostic.Logger;
@@ -45,14 +44,13 @@ public class NpmProcessor implements PackageProviderProcessor {
   }
 
   @Override
-  public Boolean process(JetbrainsSnippet item, PsiFile file) {
+  public Boolean process(String pkgName, PsiFile file) {
     final String projectRoot = file.getProject().getBasePath();
     PsiDirectory dir = file.getContainingDirectory();
     while (dir != null) {
       PsiFile pkgFile = dir.findFile("package.json");
       if (pkgFile != null) {
-        return hasDependency(
-            item.getContext().getPackageProvider().getName(), pkgFile.getVirtualFile().getPath());
+        return hasDependency(pkgName, pkgFile.getVirtualFile().getPath());
       }
 
       if (dir.getVirtualFile().getPath().equals(projectRoot)) {

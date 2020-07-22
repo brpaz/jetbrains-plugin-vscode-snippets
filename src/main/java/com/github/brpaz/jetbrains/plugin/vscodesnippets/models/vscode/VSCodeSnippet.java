@@ -6,7 +6,9 @@ import com.github.brpaz.jetbrains.plugin.vscodesnippets.utils.serializer.ScopeSe
 import com.google.gson.annotations.JsonAdapter;
 import com.google.gson.annotations.SerializedName;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class VSCodeSnippet {
 
@@ -18,7 +20,7 @@ public class VSCodeSnippet {
   private List<String> body;
 
   @JsonAdapter(ScopeSerializer.class)
-  private List<VSCodeLanguage> scope;
+  private Set<VSCodeLanguage> scope;
 
   private String description;
 
@@ -27,14 +29,14 @@ public class VSCodeSnippet {
   public VSCodeSnippet() {
     this.body = new ArrayList<>();
     this.prefix = new ArrayList<>();
-    this.scope = new ArrayList<>();
+    this.scope = new HashSet<>();
   }
 
   public boolean isValid() {
-    return this.body.size() > 0 &&
-      this.scope.size() > 0 &&
-      this.prefix.size() > 0 &&
-      this.label != null;
+    return this.body.size() > 0
+        && this.scope.size() > 0
+        && this.prefix.size() > 0
+        && this.label != null;
   }
 
   public static class Context {
@@ -68,7 +70,7 @@ public class VSCodeSnippet {
     return body;
   }
 
-  public List<VSCodeLanguage> getScope() {
+  public Set<VSCodeLanguage> getScope() {
     return scope;
   }
 
@@ -88,7 +90,7 @@ public class VSCodeSnippet {
     this.body = body;
   }
 
-  public void setScope(List<VSCodeLanguage> scope) {
+  public void setScope(Set<VSCodeLanguage> scope) {
     this.scope = scope;
   }
 }
