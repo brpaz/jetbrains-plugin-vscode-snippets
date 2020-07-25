@@ -83,5 +83,4 @@ spotbugsMain {
 
 publishPlugin {
     token = System.getenv("INTELIJ_PUBLISH_TOKEN")
-    channels 'beta'
 }
