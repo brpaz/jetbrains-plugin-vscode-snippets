@@ -73,7 +73,6 @@ spotbugs {
     reportLevel = "high"
 }
 
-
 spotbugsMain {
     reports {
         xml.enabled = true
