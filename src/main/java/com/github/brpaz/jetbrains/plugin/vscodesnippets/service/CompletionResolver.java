@@ -13,14 +13,13 @@ import com.intellij.lang.Language;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.ProcessingContext;
-import kotlin.Pair;
-import org.jetbrains.annotations.NotNull;
-
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import kotlin.Pair;
+import org.jetbrains.annotations.NotNull;
 
 public final class CompletionResolver {
 

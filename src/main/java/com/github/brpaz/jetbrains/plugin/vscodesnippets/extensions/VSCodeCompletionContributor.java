@@ -9,9 +9,8 @@ import com.intellij.openapi.components.ServiceManager;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.patterns.PlatformPatterns;
 import com.intellij.util.ProcessingContext;
-import org.jetbrains.annotations.NotNull;
-
 import java.util.List;
+import org.jetbrains.annotations.NotNull;
 
 public class VSCodeCompletionContributor extends CompletionContributor {
 
@@ -20,9 +19,10 @@ public class VSCodeCompletionContributor extends CompletionContributor {
   private final CompletionResolver completionResolver;
 
   public VSCodeCompletionContributor() {
-    completionResolver = new CompletionResolver(
-      ServiceManager.getService(SnippetsRegistry.class),
-      new PackageProviderProcessorFactory());
+    completionResolver =
+        new CompletionResolver(
+            ServiceManager.getService(SnippetsRegistry.class),
+            new PackageProviderProcessorFactory());
 
     extend(
         CompletionType.BASIC,
