@@ -22,7 +22,7 @@ jobs:
           ./gradlew buildPlugin
 
       - name: Push Binary to release
-      - uses: ncipollo/release-action@v1
+        uses: ncipollo/release-action@v1
         with:
           artifacts: "build/distributions/*.java"
           token: ${{ secrets.GITHUB_TOKEN }}
