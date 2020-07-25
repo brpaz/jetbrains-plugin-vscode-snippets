@@ -1,4 +1,4 @@
-package com.github.brpaz.jetbrains.plugin.vscodesnippets.completion;
+package com.github.brpaz.jetbrains.plugin.vscodesnippets.models;
 
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.jetbrains.JetbrainsSnippet;
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy;

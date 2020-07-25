@@ -15,21 +15,23 @@ public class VSCodeSnippet {
   private String label;
 
   @JsonAdapter(PrefixSerializer.class)
-  private List<String> prefix;
+  private final List<String> prefix;
 
-  private List<String> body;
+  private final List<String> body;
 
   @JsonAdapter(ScopeSerializer.class)
   private Set<VSCodeLanguage> scope;
 
-  private String description;
+  private final String description;
 
-  private Context context;
+  private final Context context;
 
   public VSCodeSnippet() {
     this.body = new ArrayList<>();
     this.prefix = new ArrayList<>();
     this.scope = new HashSet<>();
+    this.description = "";
+    this.context = null;
   }
 
   public boolean isValid() {
@@ -40,7 +42,7 @@ public class VSCodeSnippet {
   }
 
   public static class Context {
-    private List<String> patterns = new ArrayList<>();
+    private final List<String> patterns = new ArrayList<>();
 
     @SerializedName("package")
     private PackageContext pkg;
@@ -80,14 +82,6 @@ public class VSCodeSnippet {
 
   public Context getContext() {
     return context;
-  }
-
-  public void setPrefix(List<String> prefix) {
-    this.prefix = prefix;
-  }
-
-  public void setBody(List<String> body) {
-    this.body = body;
   }
 
   public void setScope(Set<VSCodeLanguage> scope) {
