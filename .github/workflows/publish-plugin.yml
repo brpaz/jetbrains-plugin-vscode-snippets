@@ -19,7 +19,17 @@ jobs:
       - name: Build Release binary
         run:  |
           echo ${GITHUB_REF##*/} > version.txt
+          cat version.txt
           ./gradlew buildPlugin
+
+      - name: Create GitHub release
+        uses: Roang-zero1/github-upload-release-artifacts-action@master
+        with:
+          created_tag: ${{ github.ref }}
+          args:
+            - build/distributions
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Publish Plugin to Jetbrains Plugin Repository
         run: ./gradlew publishPlugin --stacktrace
