@@ -6,6 +6,9 @@ import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.vscode.VSCodeSnip
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.utils.LanguagesMapper;
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.utils.PlaceholderProcessor;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
+import java.util.stream.Collectors;
 import org.apache.commons.lang.StringUtils;
 
 public class JetbrainsSnippet {
@@ -50,20 +53,22 @@ public class JetbrainsSnippet {
   }
 
   public static class Context {
-    private final JetbrainsLanguage[] languages;
+    private final Set<JetbrainsLanguage> languages;
 
     private final List<String> filePatterns;
 
     private final PackageContext packageProvider;
 
     public Context(
-        JetbrainsLanguage[] languages, List<String> filePatterns, PackageContext packageProvider) {
+        Set<JetbrainsLanguage> languages,
+        List<String> filePatterns,
+        PackageContext packageProvider) {
       this.languages = languages;
       this.filePatterns = filePatterns;
       this.packageProvider = packageProvider;
     }
 
-    public JetbrainsLanguage[] getLanguages() {
+    public Set<JetbrainsLanguage> getLanguages() {
       return languages;
     }
 
@@ -79,16 +84,19 @@ public class JetbrainsSnippet {
   public static JetbrainsSnippet fromVSCodeSnippet(VSCodeSnippet codeSnippet) {
 
     String body = StringUtils.join(codeSnippet.getBody(), "\n");
-    List<VSCodeLanguage> languageScope = codeSnippet.getScope();
+    Set<VSCodeLanguage> languageScope = codeSnippet.getScope();
 
-    JetbrainsLanguage[] languages =
-        languageScope.stream().map(LanguagesMapper::toJetbrains).toArray(JetbrainsLanguage[]::new);
+    Set<JetbrainsLanguage> languages =
+        languageScope.stream()
+            .map(LanguagesMapper::toJetbrains)
+            .filter(Objects::nonNull)
+            .collect(Collectors.toSet());
 
     Context context =
         new Context(
             languages,
-            codeSnippet.getContext().getPatterns(),
-            codeSnippet.getContext().getPackage());
+            codeSnippet.getContext() != null ? codeSnippet.getContext().getPatterns() : null,
+            codeSnippet.getContext() != null ? codeSnippet.getContext().getPackage() : null);
 
     return new JetbrainsSnippet(
         codeSnippet.getLabel(),

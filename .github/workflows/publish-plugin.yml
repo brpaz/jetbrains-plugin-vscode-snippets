@@ -1,0 +1,37 @@
+name: Publish Plugin
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    name: Publish to Jetbrains repostiory
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v2
+
+      - name: Setup Java
+        uses: actions/setup-java@v1
+        with:
+          java-version: 11
+
+      - name: Build Release binary
+        run:  |
+          echo ${GITHUB_REF##*/} > version.txt
+          cat version.txt
+          ./gradlew buildPlugin
+
+      - name: Create GitHub release
+        uses: Roang-zero1/github-upload-release-artifacts-action@master
+        with:
+          created_tag: ${{ github.ref }}
+          args:
+            - build/distributions
+          env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish Plugin to Jetbrains Plugin Repository
+        run: ./gradlew publishPlugin --stacktrace
+        env:
+          INTELIJ_PUBLISH_TOKEN: ${{ secrets.INTELIJ_PUBLISH_TOKEN }}

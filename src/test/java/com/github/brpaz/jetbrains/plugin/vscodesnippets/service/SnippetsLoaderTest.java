@@ -1,5 +1,6 @@
 package com.github.brpaz.jetbrains.plugin.vscodesnippets.service;
 
+import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.jetbrains.JetbrainsLanguage;
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.jetbrains.JetbrainsSnippet;
 import java.io.IOException;
 import java.nio.file.Path;
@@ -50,5 +51,17 @@ public class SnippetsLoaderTest {
 
     List<JetbrainsSnippet> snippets = loader.load(paths);
     Assert.assertEquals(10, snippets.size());
+  }
+
+  @Test
+  public void load_withoutScope_InfersFromFileName() {
+    Path path = Paths.get("src", "test", "resources", "snippets_without_scope");
+
+    String[] snippetPaths = {path.toFile().getAbsolutePath()};
+
+    List<JetbrainsSnippet> snippets = loader.load(snippetPaths);
+    Assert.assertEquals(1, snippets.size());
+    Assert.assertTrue(
+        snippets.get(0).getContext().getLanguages().contains(JetbrainsLanguage.JAVASCRIPT));
   }
 }

@@ -1,0 +1,12 @@
+{
+  "jest-afterall": {
+    "body": [
+      "afterAll(() => {\n\t$0\n});"
+    ],
+    "description": "afterAll function is called once after all specs",
+    "prefix": [
+      "jest afterall",
+      "aa"
+    ]
+  }
+}

@@ -3,17 +3,17 @@ package com.github.brpaz.jetbrains.plugin.vscodesnippets.utils.serializer;
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.vscode.VSCodeLanguage;
 import com.google.gson.*;
 import java.lang.reflect.Type;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 public class ScopeSerializer
-    implements JsonSerializer<String>, JsonDeserializer<List<VSCodeLanguage>> {
+    implements JsonSerializer<String>, JsonDeserializer<Set<VSCodeLanguage>> {
 
   @Override
-  public List<VSCodeLanguage> deserialize(
+  public Set<VSCodeLanguage> deserialize(
       JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext)
       throws JsonParseException {
-    List<VSCodeLanguage> languagesList = new ArrayList<>();
+    Set<VSCodeLanguage> languagesList = new HashSet<>();
 
     String[] languages = jsonElement.getAsString().split(",");
 

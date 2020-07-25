@@ -1,4 +1,4 @@
-package com.github.brpaz.jetbrains.plugin.vscodesnippets.completion;
+package com.github.brpaz.jetbrains.plugin.vscodesnippets.models;
 
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.jetbrains.JetbrainsSnippet;
 import com.intellij.codeInsight.lookup.AutoCompletionPolicy;
@@ -21,7 +21,7 @@ public class VsCodeLookupElement extends LiveTemplateLookupElementImpl {
   }
 
   private static TemplateImpl buildTemplateFromSnippet(JetbrainsSnippet snippet) {
-    TemplateImpl tpl = new TemplateImpl(snippet.getLabel(), "teste");
+    TemplateImpl tpl = new TemplateImpl(snippet.getLabel(), "");
     tpl.setString(snippet.getBody());
     tpl.setDescription(snippet.getDescription());
 
@@ -47,7 +47,7 @@ public class VsCodeLookupElement extends LiveTemplateLookupElementImpl {
 
   @Override
   public Set<String> getAllLookupStrings() {
-    List lookupStrings = new ArrayList<>();
+    List<String> lookupStrings = new ArrayList<>();
     lookupStrings.add(snippet.getLabel());
     lookupStrings.addAll(snippet.getPrefix());
 

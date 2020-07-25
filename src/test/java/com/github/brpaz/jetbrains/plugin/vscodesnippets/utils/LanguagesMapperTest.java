@@ -1,6 +1,7 @@
 package com.github.brpaz.jetbrains.plugin.vscodesnippets.utils;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.jetbrains.JetbrainsLanguage;
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.vscode.VSCodeLanguage;
@@ -15,8 +16,8 @@ public class LanguagesMapperTest {
   }
 
   @Test
-  public void toJetbrains_withUnknownLanguage_returnsNone() {
+  public void toJetbrains_withUnknownLanguage_returnsNull() {
     JetbrainsLanguage result = LanguagesMapper.toJetbrains(VSCodeLanguage.ABAP);
-    assertEquals(JetbrainsLanguage.NONE, result);
+    assertNull(result);
   }
 }
