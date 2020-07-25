@@ -60,55 +60,23 @@ jobs:
 
       - name: Publish code coverage report
         uses: codecov/codecov-action@v1
+        if: ${{ always() }}
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
           file: ./build/reports/jacoco/test/jacocoTestReport.xml
 
-      - name: Upload Test Reports
-        uses: actions/upload-artifact@v2
-        with:
-          name: jacoco-report
-          path: build/reports/jacoco/test/html/index.html
-        if: ${{ always() }}
-
   release:
-    name: Release
+    name: GitHub Release
     needs: [lint, test]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Check out repository
         uses: actions/checkout@v2
-
-      - name: Setup Java
-        uses: actions/setup-java@v1
         with:
-            java-version: 11
-
-      - name: Get Next Release Version
-        uses: cycjimmy/semantic-release-action@v2
-        id: semantic_dry_run
-        with:
-          dry_run: true
-        env:
-           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Build Release binary
-        if: steps.semantic_dry_run.outputs.new_release_published == 'true'
-        run:  |
-          echo ${{ steps.semantic_dry_run.outputs.new_release_version }} > version.txt
-          ./gradlew buildPlugin
+          token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
 
       - name: Publish Release to GitHub
         uses: cycjimmy/semantic-release-action@v2
-        id: semantic_publish
-        with:
-          dry_run: false
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-
-      - name: Publish Plugin to Jetbrains Plugin Repository
-        if: steps.semantic_publish.outputs.new_release_published == 'true'
-        run: ./gradlew publishPlugin --stacktrace
-        env:
-          INTELIJ_PUBLISH_TOKEN: ${{ secrets.INTELIJ_PUBLISH_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}

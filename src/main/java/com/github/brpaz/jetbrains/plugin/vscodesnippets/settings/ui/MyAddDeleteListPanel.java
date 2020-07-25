@@ -34,8 +34,9 @@ public class MyAddDeleteListPanel extends AddDeleteListPanel<String> {
   protected String findItemToAdd() {
 
     final FileChooserDescriptor fileChooserDescriptor =
-        FileChooserDescriptorFactory.createSingleFolderDescriptor();
-    fileChooserDescriptor.setTitle("Select Your VS Code snippets folder");
+        FileChooserDescriptorFactory.createSingleFolderDescriptor()
+          .withTitle("Select Folder containing your VS Code Snippets")
+          .withShowHiddenFiles(true);
 
     VirtualFile[] paths = FileChooser.chooseFiles(fileChooserDescriptor, null, null);
 
