@@ -2,6 +2,7 @@ package com.github.brpaz.jetbrains.plugin.vscodesnippets.models.jetbrains;
 
 import static org.junit.Assert.assertEquals;
 
+import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.PackageProvider;
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.vscode.VSCodeSnippet;
 import com.google.gson.Gson;
 import org.junit.Test;
@@ -43,10 +44,10 @@ public class JetbrainsSnippetTest {
     assertEquals(
         "afterAll function is called once after all specs", mappedSnippet.getDescription());
     assertEquals("jest", mappedSnippet.getContext().getPackageProvider().getName());
-    // assertEquals(PackageProvider.NPM,
-    // mappedSnippet.getContext().getPackageProvider().getProvider());
-    assertEquals(4, mappedSnippet.getContext().getLanguages().length);
+    assertEquals(
+        PackageProvider.NPM, mappedSnippet.getContext().getPackageProvider().getProvider());
+    assertEquals(3, mappedSnippet.getContext().getLanguages().size());
     assertEquals("**/*/*.spec.{ts,js}", mappedSnippet.getContext().getFilePatterns().get(0));
-    assertEquals("afterAll(() => {\n" + "\t$0\n" + "});", mappedSnippet.getBody());
+    assertEquals("afterAll(() => {\n" + "\t$VAR0$\n" + "});", mappedSnippet.getBody());
   }
 }

@@ -26,12 +26,6 @@ public class LanguagesMapper {
           entry(VSCodeLanguage.HTML, JetbrainsLanguage.HTML));
 
   public static JetbrainsLanguage toJetbrains(VSCodeLanguage language) {
-    try {
-
-      return LANGUAGE_MAP.getOrDefault(language, JetbrainsLanguage.NONE);
-
-    } catch (IllegalArgumentException e) {
-      return JetbrainsLanguage.NONE;
-    }
+    return LANGUAGE_MAP.getOrDefault(language, null);
   }
 }

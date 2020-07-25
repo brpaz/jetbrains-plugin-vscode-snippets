@@ -1,6 +1,7 @@
 package com.github.brpaz.jetbrains.plugin.vscodesnippets.service;
 
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.jetbrains.JetbrainsSnippet;
+import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.vscode.VSCodeLanguage;
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.vscode.VSCodeSnippet;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
@@ -15,6 +16,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.*;
 import java.util.stream.Collectors;
+import org.apache.commons.io.FilenameUtils;
 
 @Service
 public final class SnippetsLoader {
@@ -52,7 +54,7 @@ public final class SnippetsLoader {
   private List<JetbrainsSnippet> readSnippetFile(Path path) {
     List<JetbrainsSnippet> snippetsList = new ArrayList<>();
     File f = path.toFile();
-
+    VSCodeLanguage fileScope = getScopeFromFile(f);
     try {
       Map<String, VSCodeSnippet> snippets =
           gson.fromJson(
@@ -61,12 +63,31 @@ public final class SnippetsLoader {
       for (Map.Entry<String, VSCodeSnippet> entry : snippets.entrySet()) {
         VSCodeSnippet s = entry.getValue();
         s.setLabel(entry.getKey());
-        snippetsList.add(JetbrainsSnippet.fromVSCodeSnippet(entry.getValue()));
+
+        if (s.getScope().size() == 0 && fileScope != null) {
+          Set<VSCodeLanguage> scope = new HashSet<>();
+          scope.add(fileScope);
+          s.setScope(scope);
+        }
+
+        if (s.isValid()) {
+          snippetsList.add(JetbrainsSnippet.fromVSCodeSnippet(entry.getValue()));
+        }
       }
     } catch (Exception e) {
       logger.warn("Cannot parse snippet file", e);
     }
 
     return snippetsList;
+  }
+
+  private VSCodeLanguage getScopeFromFile(File f) {
+    String fileName = FilenameUtils.getBaseName(f.getName());
+
+    try {
+      return VSCodeLanguage.fromLabel(fileName);
+    } catch (IllegalArgumentException e) {
+      return null;
+    }
   }
 }
