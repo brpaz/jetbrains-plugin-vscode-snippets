@@ -6,7 +6,6 @@ import com.intellij.codeInsight.template.impl.LiveTemplateLookupElementImpl;
 import com.intellij.codeInsight.template.impl.TemplateImpl;
 import com.intellij.codeInsight.template.impl.TemplateImplUtil;
 import com.intellij.codeInsight.template.impl.Variable;
-
 import java.util.*;
 
 public class VsCodeLookupElement extends LiveTemplateLookupElementImpl {

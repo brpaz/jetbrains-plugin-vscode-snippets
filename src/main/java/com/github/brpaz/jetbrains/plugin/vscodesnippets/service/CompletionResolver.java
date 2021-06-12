@@ -13,14 +13,13 @@ import com.intellij.lang.Language;
 import com.intellij.openapi.diagnostic.Logger;
 import com.intellij.psi.PsiFile;
 import com.intellij.util.ProcessingContext;
-import kotlin.Pair;
-import org.jetbrains.annotations.NotNull;
-
 import java.nio.file.FileSystems;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
+import kotlin.Pair;
+import org.jetbrains.annotations.NotNull;
 
 public final class CompletionResolver {
 
@@ -43,7 +42,8 @@ public final class CompletionResolver {
   }
 
   public List<VsCodeLookupElement> resolve(
-      @NotNull CompletionParameters parameters, @NotNull ProcessingContext context) { return this.snippetsRegistry.getSnippets().stream()
+      @NotNull CompletionParameters parameters, @NotNull ProcessingContext context) {
+    return this.snippetsRegistry.getSnippets().stream()
         .filter(item -> filterByLanguage(item, parameters.getOriginalFile().getLanguage()))
         .filter(item -> filterByPattern(item, parameters.getOriginalFile()))
         .filter(item -> filterByPackage(item, parameters.getOriginalFile()))
@@ -58,7 +58,9 @@ public final class CompletionResolver {
 
   private boolean filterByPattern(JetbrainsSnippet snippet, PsiFile file) {
 
-    if (snippet.getContext() == null || snippet.getContext().getFilePatterns() == null || snippet.getContext().getFilePatterns().size() == 0) {
+    if (snippet.getContext() == null
+        || snippet.getContext().getFilePatterns() == null
+        || snippet.getContext().getFilePatterns().size() == 0) {
       return true;
     }
 
@@ -69,7 +71,9 @@ public final class CompletionResolver {
     return snippet.getContext().getFilePatterns().stream()
         .anyMatch(
             glob ->
-                FileSystems.getDefault().getPathMatcher("glob:" + glob.replace("**/*", "**")).matches(Path.of(filePath)));
+                FileSystems.getDefault()
+                    .getPathMatcher("glob:" + glob.replace("**/*", "**"))
+                    .matches(Path.of(filePath)));
   }
 
   private boolean filterByPackage(JetbrainsSnippet item, PsiFile file) {

@@ -1,11 +1,10 @@
 package com.github.brpaz.jetbrains.plugin.vscodesnippets.utils;
 
+import static java.util.Map.entry;
+
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.jetbrains.JetbrainsLanguage;
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.vscode.VSCodeLanguage;
-
 import java.util.Map;
-
-import static java.util.Map.entry;
 
 public class LanguagesMapper {
 
