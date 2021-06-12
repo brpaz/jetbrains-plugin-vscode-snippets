@@ -1,10 +1,12 @@
+
 plugins {
     id 'java'
-    id 'org.jetbrains.intellij' version '0.4.21'
+    id 'org.jetbrains.intellij' version '1.0'
     id 'jacoco'
     id 'checkstyle'
     id "com.diffplug.spotless" version "5.1.0"
     id "com.github.spotbugs" version "4.4.4"
+    id "com.github.otkmnb2783.dotenv" version "0.2.0"
 }
 
 group 'com.github.brpaz'
@@ -15,13 +17,13 @@ repositories {
 }
 
 dependencies {
-    testCompile group: 'junit', name: 'junit', version: '4.5'
+    testImplementation group: 'junit', name: 'junit', version: '4.5'
 
     // https://mvnrepository.com/artifact/org.mockito/mockito-core
-    testCompile group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
+    testImplementation group: 'org.mockito', name: 'mockito-core', version: '2.1.0'
 
     implementation 'com.google.code.gson:gson:2.8.6'
-    compile group: 'commons-io', name: 'commons-io', version: '2.6'
+    implementation group: 'commons-io', name: 'commons-io', version: '2.6'
 }
 
 // See https://github.com/JetBrains/gradle-intellij-plugin/
@@ -29,15 +31,16 @@ intellij {
     version '2020.1.1'
 }
 
-runIde {
-    // Absolute path to the installed targetIDE to use as IDE Development Instance
-    // Note the Contents directory must be added at the end of the path for macOS.
-    ideDirectory '/home/bruno/.local/share/JetBrains/Toolbox/apps/WebStorm/ch-0/201.7223.93/'
+tasks {
+    runIde {
+        // Absolute path to the installed targetIDE to use as IDE Development Instance
+        // Note the Contents directory must be added at the end of the path for macOS.
+        ideDir.set(file("${env.IDE_PATH}"))
+    }
+    patchPluginXml {
+        sinceBuild.set('193.*')
+    }
 }
-patchPluginXml {
-    sinceBuild '193.*'
-}
-
 
 test {
     finalizedBy jacocoTestReport // report is always generated after tests run

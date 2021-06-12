@@ -1,10 +1,11 @@
 package com.github.brpaz.jetbrains.plugin.vscodesnippets.utils;
 
-import static java.util.Map.entry;
-
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.jetbrains.JetbrainsLanguage;
 import com.github.brpaz.jetbrains.plugin.vscodesnippets.models.vscode.VSCodeLanguage;
+
 import java.util.Map;
+
+import static java.util.Map.entry;
 
 public class LanguagesMapper {
 
@@ -22,7 +23,9 @@ public class LanguagesMapper {
           entry(VSCodeLanguage.PHP, JetbrainsLanguage.PHP),
           entry(VSCodeLanguage.PYTHON, JetbrainsLanguage.PYTHON),
           entry(VSCodeLanguage.GO, JetbrainsLanguage.GO),
+          entry(VSCodeLanguage.JAVA, JetbrainsLanguage.JAVA),
           entry(VSCodeLanguage.HANDLEBARS, JetbrainsLanguage.HANDLEBARS),
+          entry(VSCodeLanguage.JSON, JetbrainsLanguage.JSON),
           entry(VSCodeLanguage.HTML, JetbrainsLanguage.HTML));
 
   public static JetbrainsLanguage toJetbrains(VSCodeLanguage language) {
