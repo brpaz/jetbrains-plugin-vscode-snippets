@@ -6,11 +6,7 @@ import com.intellij.codeInsight.template.impl.LiveTemplateLookupElementImpl;
 import com.intellij.codeInsight.template.impl.TemplateImpl;
 import com.intellij.codeInsight.template.impl.TemplateImplUtil;
 import com.intellij.codeInsight.template.impl.Variable;
-import com.intellij.util.containers.hash.LinkedHashMap;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class VsCodeLookupElement extends LiveTemplateLookupElementImpl {
   private final JetbrainsSnippet snippet;
@@ -25,7 +21,7 @@ public class VsCodeLookupElement extends LiveTemplateLookupElementImpl {
     tpl.setString(snippet.getBody());
     tpl.setDescription(snippet.getDescription());
 
-    LinkedHashMap<String, Variable> variables = TemplateImplUtil.parseVariables(snippet.getBody());
+    Map<String, Variable> variables = TemplateImplUtil.parseVariables(snippet.getBody());
 
     for (Variable variable : variables.values()) {
       tpl.addVariable(

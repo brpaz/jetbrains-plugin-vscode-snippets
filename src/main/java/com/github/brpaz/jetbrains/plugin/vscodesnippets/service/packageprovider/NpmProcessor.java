@@ -25,6 +25,11 @@ public class NpmProcessor implements PackageProviderProcessor {
       json = this.gson.fromJson(new FileReader(filePath, StandardCharsets.UTF_8), JsonObject.class);
     } catch (Exception e) {
       logger.warn(e);
+      return false;
+    }
+
+    if (json == null) {
+      return false;
     }
 
     if (json.has("dependencies") && json.getAsJsonObject("dependencies").get(name) != null) {

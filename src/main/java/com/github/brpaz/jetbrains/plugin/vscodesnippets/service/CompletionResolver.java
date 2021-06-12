@@ -58,7 +58,9 @@ public final class CompletionResolver {
 
   private boolean filterByPattern(JetbrainsSnippet snippet, PsiFile file) {
 
-    if (snippet.getContext() == null || snippet.getContext().getFilePatterns().size() == 0) {
+    if (snippet.getContext() == null
+        || snippet.getContext().getFilePatterns() == null
+        || snippet.getContext().getFilePatterns().size() == 0) {
       return true;
     }
 
@@ -69,7 +71,9 @@ public final class CompletionResolver {
     return snippet.getContext().getFilePatterns().stream()
         .anyMatch(
             glob ->
-                FileSystems.getDefault().getPathMatcher("glob:" + glob).matches(Path.of(filePath)));
+                FileSystems.getDefault()
+                    .getPathMatcher("glob:" + glob.replace("**/*", "**"))
+                    .matches(Path.of(filePath)));
   }
 
   private boolean filterByPackage(JetbrainsSnippet item, PsiFile file) {

@@ -22,7 +22,7 @@ jobs:
           java-version: 11
 
       - name: Checkstyle
-        run: ./gradlew check
+        run: ./gradlew checkstyleMain
 
       - name: SpotBugs
         run: ./gradlew spotBugsMain spotBugsTest
