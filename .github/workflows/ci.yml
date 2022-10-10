@@ -14,7 +14,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.1.0
 
       - name: Setup Java
         uses: actions/setup-java@v1
@@ -45,7 +45,7 @@ jobs:
     needs: lint
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.1.0
 
       - name: Setup Java
         uses: actions/setup-java@v1
@@ -72,7 +72,7 @@ jobs:
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Check out repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v3.1.0
         with:
           token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
 
