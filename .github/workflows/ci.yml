@@ -77,6 +77,6 @@ jobs:
           token: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
 
       - name: Publish Release to GitHub
-        uses: cycjimmy/semantic-release-action@v2
+        uses: cycjimmy/semantic-release-action@v3
         env:
           GITHUB_TOKEN: ${{ secrets.SEMANTIC_RELEASE_TOKEN }}
